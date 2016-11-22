@@ -1,0 +1,32 @@
+# First try to map leader bytes 6+7 combined, then if nothing
+# try to map just leader byte 6. 
+
+# first some mappings from leader bytes 6 and 7 combined:
+
+'aa': Book
+'ab': Serial
+'ai': Research guide
+'am': Book
+'as': Serial
+'ta': Book
+'tm': Book
+
+#    terrible hacks to add additional formats not clearly established in MARC
+'az': Ebook
+'gz': Streaming video
+'iz': Streaming audio
+'sz': Electronic journal
+'jz': Streaming music
+
+# Now some from just byte 6
+'c': Musical score
+'d': Musical score
+'e': Map
+'f': Map
+'g': Video
+'i': Non-musical recording
+'j': Musical recording
+'k': Image
+'m': Computer file
+'o': Kit
+'r': Equipment
