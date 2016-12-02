@@ -2,6 +2,10 @@
 # for pulling things out of MARC21, like `marc_languages`
 require 'traject/macros/marc21_semantics'
 extend  Traject::Macros::Marc21Semantics
+require 'bibtex_generator'
+extend Traject::Macros::BibtexForTraject
+
+to_field "bibtex_t", generate_bibtex
 
 settings do
   provide "solr.url", "http://localhost:8983/solr/blacklight-core"
