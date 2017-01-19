@@ -30,7 +30,7 @@ module Traject
         m245 = record['245']
         title = m245['a']
 
-        author_fields = ['100', '110', '700']
+        author_fields = ['100', '700']
         authors = []
         auth_fields = record.find_all {|f| author_fields.include? f.tag}
         auth_fields.each do |field|

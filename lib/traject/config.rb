@@ -18,7 +18,7 @@ to_field "marc_display",        serialized_marc(:format => "binary", :binary_esc
 to_field "abstract_display",    extract_marc("520a")
 
 
-to_field "author_display",      extract_marc("100abcdq:110:111", :alternate_script => false)
+to_field "author_display",      extract_marc("100abcdq:110:111", :alternate_script => false, :first => true)
 to_field "author_facet",        extract_marc("100abcdq:110abcdgnu:111acdenqu:700abcdq:710abcdgnu:711acdenqu", :trim_punctuation => true)
 to_field "author_sort",         marc_sortable_author
 to_field "author_t",            extract_marc("100abcdq:110abcdgnu:111acdenqu:700abcdq:710abcdgnu:711acdenqu")
