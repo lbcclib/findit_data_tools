@@ -30,8 +30,8 @@ module FindItData
                 file.write res.body
                 files_written << filename
             end
-        return files_written.uniq
         end
+        return files_written.uniq
     end
 
     private

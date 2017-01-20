@@ -11,7 +11,7 @@ def print_usage_tips
     puts
     puts "-d will remove the records from solr"
     puts "-f will fetch the records from the record provider"
-    puts "-i will index the records in solr; you can pass a file to this option to index a field you've already downloaded (e.g. ruby findit_data.rb -fi opentextbooks file.mrc)"
+    puts "-i will index the records in solr; you can pass a file to this option to index a field you've already downloaded (e.g. ruby findit_data.rb -i opentextbooks file.mrc)"
     puts "-r will do all of the above, resulting in a re-index"
     puts
     puts "List of record providers"
