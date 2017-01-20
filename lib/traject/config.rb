@@ -153,14 +153,4 @@ to_field "title_t",             extract_marc("245ak", :trim_punctuation => true)
 to_field "title_vern_display",  extract_marc("245a", :trim_punctuation => true, :alternate_script => :only)
 
 
-to_field 'url_fulltext_display',
-                                extract_marc("856|40|u")
-to_field 'url_fulltext_display',
-                                extract_marc("856|42|u")
-
-
-
-
-
-
 
