@@ -58,6 +58,8 @@ to_field "is_part_of_t",        extract_marc("772:773")
 
 
 to_field "isbn_t",              extract_marc("020a:773z:776z:534z:556z")
+to_field "isbn_of_alternate_edition_t",
+	                        extract_marc("020z")
 
 
 to_field "language_facet",      marc_languages
