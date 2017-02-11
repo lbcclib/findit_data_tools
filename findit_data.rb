@@ -36,12 +36,20 @@ end
 
 
 if ARGV[0].include? 'f' or ARGV[0].include? 'r'
+    Dir.mkdir 'new' unless File.exists? 'new'
+    Dir.mkdir 'update' unless File.exists? 'update'
+    Dir.mkdir 'delete' unless File.exists? 'delete'
+
     puts "Fetching the file"
     if FindItData::record_providers.include? ARGV[1]
-        if FindItData::record_providers[ARGV[1]].key? 'fetch_opts'
-            file_names = FindItData::fetch_http FindItData::record_providers[ARGV[1]]['fetch_url'], FindItData::record_providers[ARGV[1]]['file_prefix'], FindItData::record_providers[ARGV[1]]['fetch_opts']
-        else
-            file_names = FindItData::fetch_http FindItData::record_providers[ARGV[1]]['fetch_url'], FindItData::record_providers[ARGV[1]]['file_prefix']
+        if 'http' == FindItData::record_providers[ARGV[1]]['fetch_method']
+            if FindItData::record_providers[ARGV[1]].key? 'fetch_opts'
+                file_names = FindItData::fetch_http FindItData::record_providers[ARGV[1]]['fetch_url'], FindItData::record_providers[ARGV[1]]['file_prefix'], FindItData::record_providers[ARGV[1]]['fetch_opts']
+            else
+                file_names = FindItData::fetch_http FindItData::record_providers[ARGV[1]]['fetch_url'], FindItData::record_providers[ARGV[1]]['file_prefix']
+            end
+        elsif 'ftp' == FindItData::record_providers[ARGV[1]]['fetch_method']
+            file_names = FindItData::fetch_ftp FindItData::record_providers[ARGV[1]]['remote_server'], FindItData::record_providers[ARGV[1]]['file_prefix'], FindItData::record_providers[ARGV[1]]['credentials']
         end
     else
         print_usage_tips

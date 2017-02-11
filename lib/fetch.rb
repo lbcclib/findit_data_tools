@@ -1,4 +1,5 @@
 module FindItData
+    require 'net/ftp'
     require 'net/http'
     require 'time'
 
@@ -10,7 +11,7 @@ module FindItData
         else
             urls_to_fetch = [urls]
         end
-        filename = prefix + '_' + date_downloaded + '.mrc'
+        filename = 'new/' + prefix + '_' + date_downloaded + '.mrc'
         if File.exist? filename
             File.delete filename
         end
@@ -34,9 +35,36 @@ module FindItData
         return files_written.uniq
     end
 
+    def fetch_ftp server, prefix, credentials, opts = {}
+        files_written = []
+        ftp = Net::FTP.new server
+        ftp.login credentials['user'], credentials['password']
+        files = ftp.chdir('metacoll/out/ongoing/new')
+        files_written += fetch_latest_files_by_ftp ftp, 'new', prefix
+        files = ftp.chdir('../updates')
+        files_written += fetch_latest_files_by_ftp ftp, 'update', prefix
+        files = ftp.chdir('../deletes')
+        files_written += fetch_latest_files_by_ftp ftp, 'delete', prefix
+   puts files_written
+        ftp.close
+    end
+
     private
     def date_downloaded
         return DateTime.now.strftime('%F-%H-%M-%S')
+    end
+
+    def fetch_latest_files_by_ftp ftp, directory, prefix
+        files_written = []
+        files = ftp.nlst('*.mrc')
+        files.each do |file|
+            if (Time.now - (7*24*60*60)) < (ftp.mtime file)
+                puts file
+                filename = directory + prefix + '_' + date_downloaded + '.mrc'
+                ftp.getbinaryfile(file, filename)
+                files_written << filename
+            end
+        end
     end
 
 end
