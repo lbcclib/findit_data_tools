@@ -48,9 +48,18 @@ module Traject
 
         formats.concat genre
 
-        if proceeding?
-          formats.delete("Book")
-          formats <<  "Conference"
+        f8_23 = record['008'].value[23]
+        if 'o' == f8_23
+            if formats.include? 'Book'
+                formats.delete('Book')
+                formats << 'Ebook'
+            elsif formats.include? 'Serial'
+                formats.delete('Serial')
+                formats << 'Electronic journal'
+            elsif formats.include? 'Video'
+                formats.delete('Video')
+                formats << 'Streaming video'
+            end
         end
 
         if formats.empty?
@@ -79,14 +88,6 @@ module Traject
           record.find_all {|f| f.tag == "007"}.collect {|f| marc_genre_007[f.value.slice(0)]}
 
         [results].flatten
-      end
-
-      def proceeding?
-        @proceeding_q ||= begin
-          ! record.find do |field|
-            field.tag.slice(0) == '6' && field.subfields.find {|sf| sf.code == "v" && sf.value =~ /^\s*(C|c)ongresses\.?\s*$/}
-          end.nil?
-        end
       end
 
     end

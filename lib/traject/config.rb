@@ -11,8 +11,9 @@ settings do
   provide "solr.url", "http://localhost:8983/solr/blacklight-core"
 end
 
+
 to_field "id",                  extract_marc("001", :first => true)
-to_field "marc_display",        serialized_marc(:format => "binary", :binary_escape => false, :allow_oversized => true)
+to_field "marc_display",        serialized_marc(:format => "xml")
 
 
 to_field "abstract_display",    extract_marc("520a")
@@ -42,8 +43,16 @@ to_field "eg_tcn_t",            extract_marc("901c", :first => true)
 to_field "followed_by_display", extract_marc("785at")
 to_field "followed_by_t",       extract_marc("785")
 
-
-to_field "genre_facet",         extract_marc("655a")
+to_field 'genre_facet',         extract_marc('655a', :trim_punctuation => true) do |record, accumulator|
+                                    ['Aufsatzsammlung',
+                                    'Electronic book',
+                                    'Electronic books',
+                                    'History',
+                                    'Internet videos',
+                                     ].each do |bad_genre|
+                                        accumulator.delete(bad_genre)
+                                     end
+                                end
 
 
 to_field "has_part_display",    extract_marc("774at")
@@ -128,15 +137,25 @@ to_field "subject_name_facet",   extract_marc("600abcdq:610ab:611ab",
                                         end
                                     end
                                 end
-to_field "subject_topic_facet", extract_marc("630aa:650aa:654ab:655ab",
+to_field "subject_topic_facet", extract_marc("630aa:650aa:654ab",
                                     :trim_punctuation => true, ) do |record, accumulator|
                                     #upcase first letter if needed, in MeSH sometimes inconsistently downcased
+                                    ['Electronic book',
+                                    'Electronic books',
+                                    'History',
+                                    'Internet videos',
+                                    'Streaming video',
+                                     ].each do |bad_subject|
+                                         accumulator.delete(bad_subject)
+                                    end
                                     accumulator.collect! do |value|
                                         value.gsub(/\A[a-z]/) do |m|
                                             m.upcase
                                         end
                                     end
                                 end
+
+
 to_field "subject_era_facet",   extract_marc("650y:651y:654y:655y", :trim_punctuation => true)
 to_field "subject_geo_facet",   extract_marc("651z:650z", :trim_punctuation => true)
 

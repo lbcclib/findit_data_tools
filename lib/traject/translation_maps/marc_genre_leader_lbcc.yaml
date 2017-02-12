@@ -11,12 +11,6 @@
 'ta': Book
 'tm': Book
 
-#    terrible hacks to add additional formats not clearly established in MARC
-'az': Ebook
-'gz': Streaming video
-'iz': Streaming audio
-'sz': Electronic journal
-'jz': Streaming music
 
 # Now some from just byte 6
 'c': Musical score

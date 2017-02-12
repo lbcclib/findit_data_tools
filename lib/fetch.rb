@@ -60,7 +60,7 @@ module FindItData
         files.each do |file|
             if (Time.now - (7*24*60*60)) < (ftp.mtime file)
                 puts file
-                filename = directory + prefix + '_' + date_downloaded + '.mrc'
+                filename = directory + '/' + prefix + '_' + date_downloaded + '.mrc'
                 ftp.getbinaryfile(file, filename)
                 files_written << filename
             end
