@@ -39,7 +39,7 @@ streaming_video_providers = [
 
 to_field 'record_provider_facet', literal('OCLC')
 to_field 'record_source_facet', extract_marc('950a')
-to_field 'is_electronic_facet', literal('Cat')
+to_field 'is_electronic_facet', literal('Online')
 
 to_field 'format' do |record, accumulator|
     db = record['950']['a'].to_s

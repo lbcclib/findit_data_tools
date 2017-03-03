@@ -38,6 +38,7 @@ module FindItData
     def fetch_ftp server, prefix, credentials, opts = {}
         files_written = []
         ftp = Net::FTP.new server
+	ftp.passive = true
         ftp.login credentials['user'], credentials['password']
         files = ftp.chdir('metacoll/out/ongoing/new')
         files_written += fetch_latest_files_by_ftp ftp, 'new', prefix
