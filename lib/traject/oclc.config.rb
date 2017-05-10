@@ -52,6 +52,10 @@ to_field 'format' do |record, accumulator|
     else
         accumulator << Traject::Macros::LbccFormatClassifier.new(record).formats[0]
     end
+    if accumulator.include? 'Book' #Make sure that nothing is marked as a book due to bad OCLC data
+        accumulator.pop(accumulator.length)
+        accumulator << 'Ebook'
+    end
 end
 
 to_field 'url_fulltext_display' do |record, accumulator|
