@@ -48,7 +48,11 @@ module Traject
 
         formats.concat genre
 
-        f8_23 = record['008'].value[23]
+	begin
+            f8_23 = record['008'].value[23]
+	rescue NoMethodError
+	    return []
+	end
         if 'o' == f8_23
             if formats.include? 'Book'
                 formats.delete('Book')
