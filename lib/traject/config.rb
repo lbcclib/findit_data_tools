@@ -17,6 +17,7 @@ to_field "marc_display",        serialized_marc(:format => "xml")
 
 
 to_field "abstract_display",    extract_marc("520a")
+to_field "abstract_t",          extract_marc("520")
 
 
 to_field "author_display",      extract_marc("100abcdq:110:111", :alternate_script => false, :first => true)
@@ -85,7 +86,7 @@ to_field "lccn_t",              extract_marc("010a")
 
 
 to_field "note_display",        extract_marc("500a")
-
+to_field "note_t",              extract_marc("500:508:518:524:534:545:586:585")
 
 to_field "oclcn_t",             oclcnum
 
