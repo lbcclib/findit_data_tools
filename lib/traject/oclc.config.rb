@@ -66,7 +66,7 @@ to_field 'url_fulltext_display' do |record, accumulator|
         if needs_proxy.include? db
             accumulator << "http://ezproxy.libweb.linnbenton.edu:2048/login?url=#{value}"
         elsif needs_fod_url_changes.include? db
-            accumulator << 'http://ezproxy.libweb.linnbenton.edu:2048/login?url=' + value.sub('aid=', 'aid=4065').sub('portalPlaylists', 'PortalPlaylists') + '&cid=1639'
+            accumulator << value.sub('aid=', 'wID=102565').sub('portalPlaylists', 'PortalPlaylists')
         else
             accumulator << value
         end
