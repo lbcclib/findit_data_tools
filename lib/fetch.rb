@@ -46,7 +46,7 @@ module FindItData
         files_written += fetch_latest_files_by_ftp ftp, 'update', prefix
         files = ftp.chdir('../deletes')
         files_written += fetch_latest_files_by_ftp ftp, 'delete', prefix
-   puts files_written
+        return files_written
         ftp.close
     end
 
@@ -66,6 +66,7 @@ module FindItData
                 files_written << filename
             end
         end
+        return files_written
     end
 
 end
