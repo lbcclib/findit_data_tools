@@ -127,7 +127,7 @@ to_field "serial_coverage_display",
 to_field "series_facet",        marc_series_facet
 
 
-to_field "subject_t",           extract_marc("600:610:611:630:650:651avxyz:653aa:654abcvyz:655abcvxyz:690abcdxyz:691abxyz:692abxyz:693abxyz:656akvxyz:657avxyz:652axyz:658abcd")
+to_field "subject_t",           extract_marc("600:610:611:630:650:651avxyz:653aa:654abcvyz:690abcdxyz:691abxyz:692abxyz:693abxyz:656akvxyz:657avxyz:652axyz:658abcd")
 to_field "subject_additional_t",
                                 extract_marc("600vwxyz:610vwxyz:611vwxyz:630vwxyz:650vwxyz:651vwxyz:654vwxyz:655vwxyz")
 to_field "subject_name_facet",   extract_marc("600abcdq:610ab:611ab",
