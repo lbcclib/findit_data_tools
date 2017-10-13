@@ -5,22 +5,18 @@ module FindItData
 
     # Fetches a MARC file given the URL and the prefix you'd like to save it to
     def fetch_http urls, prefix, opts = {}
+        if urls.kind_of? Proc
+            urls_to_fetch = [urls.call].flatten(1)
+	else
+            urls_to_fetch = [urls].flatten(1)
+	end
         files_written = []
-        if urls.kind_of? Array
-            urls_to_fetch = urls
-        else
-            urls_to_fetch = [urls]
-        end
         filename = 'new/' + prefix + '_' + date_downloaded + '.mrc'
         if File.exist? filename
             File.delete filename
         end
         urls_to_fetch.each do |url|
-            if url.kind_of? Proc
-                uri = URI url.call
-            else
-                uri = URI url
-            end
+	    uri = URI url
             http = Net::HTTP.new(uri.hostname, uri.port)
             request = Net::HTTP::Get.new(uri.path)
             if opts.key? 'user'
