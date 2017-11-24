@@ -5,9 +5,9 @@ to_field 'record_source_facet' do |record, accumulator|
     gale_id = record['001']
     if gale_id.to_s.include? 'OVIC'
         accumulator << 'Opposing Viewpoints in Context'
-    elsif gale_id.to_s.include? 'AHIC'
-        accumulator << 'American History in Context'
-    elsif gale_id.to_s.include? 'NGMA'
+    elsif gale_id.to_s.include? 'UHIC'
+        accumulator << 'U.S. History In Context'
+    elsif gale_id.to_s.include? 'ocm'
         accumulator << 'National Geographic Magazine Archive'
     end
 end

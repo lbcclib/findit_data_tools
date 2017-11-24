@@ -23,3 +23,4 @@ end
 
 
 to_field 'format', lbcc_formats
+to_field 'owning_lib_facet', extract_marc('852b')

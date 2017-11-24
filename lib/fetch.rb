@@ -25,8 +25,9 @@ module FindItData
             res = http.request request
             open(filename, 'ab') do |file|
                 file.write res.body
-                files_written << filename
             end
+	    `"C:\\Program Files\\MarcEdit 6\\cmarcedit.exe" -s #{filename} -validate -clean`
+            files_written << (filename + '_clean_rev.mrc')
         end
         return files_written.uniq
     end
@@ -56,8 +57,8 @@ module FindItData
         files = ftp.nlst('*.mrc')
         files.each do |file|
             if (Time.now - (7*24*60*60)) < (ftp.mtime file)
-                puts file
                 filename = directory + '/' + prefix + '_' + date_downloaded + '.mrc'
+                puts file + ' is saving as ' + filename
                 ftp.getbinaryfile(file, filename)
                 files_written << filename
             end

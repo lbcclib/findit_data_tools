@@ -8,7 +8,7 @@ module Traject
       # macro that generates a basic bibtex entry for an item
       def generate_bibtex
         lambda do |record, accumulator|
-          accumulator.concat Traject::Macros::BibtexGenerator.new(record).bibtex_string
+            accumulator.concat Traject::Macros::BibtexGenerator.new(record).bibtex_string
         end
       end
     end
@@ -34,7 +34,10 @@ module Traject
         authors = []
         auth_fields = record.find_all {|f| author_fields.include? f.tag}
         auth_fields.each do |field|
-            authors << field['a']
+            auth_subfields = field.find_all {|sf| 'a' == sf.code}
+	    auth_subfields.each do |sf|
+	        authors << sf.value
+            end
         end
 
         addresses = []
