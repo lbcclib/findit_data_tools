@@ -28,7 +28,7 @@ module Traject
 
       def compile_string
         m245 = record['245']
-        title = m245['a']
+	title = Marc21.trim_punctuation(m245['a'].strip)
 
         author_fields = ['100', '700']
         authors = []
@@ -39,19 +39,29 @@ module Traject
 
         addresses = []
         publishers = []
-        pub_years = []
         pub_fields = record.find_all {|f| ['260', '264'].include? f.tag}
         pub_fields.each do |field|
             addresses << field['a']
             publishers << field['b']
-            pub_years << field['c']
         end
 
-        # TODO: Need to be more flexible about bibtex type
-        # TODO: Need to index URLs for electronic resources
-        # TODO: Need to strip a lot of punctuation and get ensure that year is a 4-digit number
+	url = nil
+
+        begin
+            f8_23 = record['008'].value[23]
+            if 'o' == f8_23
+                bibtex_type = 'misc'
+                urls = record.find_all {|f| f.tag == '856'}
+                url = urls.first['u']
+            else
+                bibtex_type = 'book'
+            end
+        rescue NoMethodError
+            bibtex_type = 'book'
+        end
+
         bib_data = {
-          bibtex_type: 'book',
+          bibtex_type: bibtex_type,
           title: title,
         }
         unless authors.empty?
@@ -63,8 +73,9 @@ module Traject
         unless publishers.empty?
           bib_data['publisher'] = publishers[0]
         end
-        unless pub_years.empty?
-          bib_data['year'] = pub_years[0]
+	bib_data['year'] = Marc21Semantics.publication_date(record, 15, 1000, Time.new.year + 6)
+        unless url.nil?
+          bib_data['url'] = url
         end
         biblio = BibTeX::Bibliography.new
         biblio << BibTeX::Entry.new(bib_data)
