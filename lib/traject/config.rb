@@ -174,6 +174,6 @@ to_field "title_series_t",      extract_marc("440a:490a:800abcdt:400abcd:810abcd
 to_field "title_sort",          marc_sortable_title
 to_field "title_t",             extract_marc("245ak", :trim_punctuation => true)
 to_field "title_vern_display",  extract_marc("245a", :trim_punctuation => true, :alternate_script => :only)
-
+to_field "title_and_statement_of_responsibility_t", extract_marc("245abc")
 
 
