@@ -4,7 +4,7 @@ module FindItData
             'opentextbooks' => {
                 'record_provider_facet' => 'Open Textbook Library',
                 'fetch_method' => 'http',
-                'fetch_url' => 'http://open.umn.edu/opentextbooks/MARC/OTL20161101.mrc',
+                'fetch_url' => 'https://open.umn.edu/opentextbooks/download.marc',
                 'file_prefix' => 'opentextbooks',
                 'traject_configuration_files' => ['lib/traject/opentextbooks.config.rb'],
                 },
