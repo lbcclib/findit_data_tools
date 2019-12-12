@@ -26,8 +26,7 @@ module FindItData
             open(filename, 'ab') do |file|
                 file.write res.body
             end
-	    `"C:\\Program Files\\MarcEdit 6\\cmarcedit.exe" -s #{filename} -validate -clean`
-            files_written << (filename + '_clean_rev.mrc')
+            files_written << (filename)
         end
         return files_written.uniq
     end
