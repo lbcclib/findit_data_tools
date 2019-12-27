@@ -14,7 +14,10 @@ module FindItData
                 'fetch_url' => 'https://jomi.com/jomiRecords.mrc',
                 'file_prefix' => 'jomi',
                 'traject_configuration_files' => ['lib/traject/opentextbooks.config.rb','lib/traject/proxy.config.rb'],
-                }
+                },
+            'eg' => {
+                'traject_configuration_files' => ['lib/traject/eg_lbcc.config.rb'],
+                },
         }
     end
 
